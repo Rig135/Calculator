@@ -27,7 +27,7 @@ const point = document.querySelector('#point');
 const del = document.querySelector('#del');
 
 
-del.addEventListener('click', () => {
+const Delete = function () {
     display.textContent = display.textContent.slice(0, -1);
 
     const delLast = expression.split(' ');
@@ -44,6 +44,33 @@ del.addEventListener('click', () => {
 
     expression = delLast.join(' ');
     console.log(expression);
+}
+
+
+del.addEventListener('click', Delete);
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Backspace') {
+        Delete();
+    }
+    if ((event.key >= 0 && event.key <= 9) || event.key === '.') {
+        let element = event.key;
+        buttonPress(element);
+    }
+    if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
+        let element = event.key;
+        if (event.key === '*') {
+            element = 'x';
+        }
+        if (event.key === '/') {
+            element = '÷';
+        }
+        Operator(element);
+    }
+    if (event.key === '=') {
+        evalExpression();
+    }
+
 })
 
 
@@ -54,15 +81,18 @@ clear.addEventListener('click', () => {
     result = 0;
 })
 
+function buttonPress(element) {
+    display.textContent += element;
+    expression += element;
+    decimalCheck(expression);
+    console.log(expression);
+}
 
 const buttons = document.querySelectorAll('.number');
 buttons.forEach((button) => {
     button.addEventListener('click', (event) => {
-        let element = event.target;
-        display.textContent += element.textContent;
-        expression += element.textContent;
-        decimalCheck(expression);
-        console.log(expression);
+        let element = event.target.textContent;
+        buttonPress(element);
     })
 })
 
@@ -81,24 +111,29 @@ const decimalCheck = function (expression) {
 
 }
 
+
+function Operator(element) {
+    if (element === '-') {
+        if (expression === '') {
+            expression = '0' + expression;
+            display.textContent += '0';
+        }
+    }
+    if (expression.includes('+') || expression.includes('-') || expression.includes('x') || expression.includes('÷')) {
+        evalExpression();
+
+    }
+    display.textContent += element;
+    expression += ` ${element} `;
+    console.log(expression);
+}
+
+
 const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => {
     operator.addEventListener('click', (event) => {
-        let element = event.target;
-
-        if (element.textContent === '-') {
-            if (expression === '') {
-                expression = '0' + expression;
-                display.textContent += '0';
-            }
-        }
-        if (expression.includes('+') || expression.includes('-') || expression.includes('x') || expression.includes('÷')) {
-            evalExpression();
-
-        }
-        display.textContent += element.textContent;
-        expression += ` ${element.textContent} `;
-        console.log(expression);
+        let element = event.target.textContent;
+        Operator(element);
     })
 })
 
