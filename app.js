@@ -23,9 +23,11 @@ let result = 0;
 const clear = document.querySelector('#clear');
 const display = document.querySelector('#display');
 const equal = document.querySelector('#equal');
+const point = document.querySelector('#point');
 clear.addEventListener('click', () => {
     display.textContent = '';
     expression = '';
+    point.disabled = false;
     result = 0;
 })
 
@@ -36,9 +38,25 @@ buttons.forEach((button) => {
         let element = event.target;
         display.textContent += element.textContent;
         expression += element.textContent;
+        decimalCheck(expression);
         console.log(expression);
     })
 })
+
+
+const decimalCheck = function (expression) {
+
+    const breakPoint = expression.split(' ');
+    let n = breakPoint.length;
+    if (breakPoint[0].includes('.')) {
+        point.disabled = true;
+    }
+    point.disabled = false;
+    if (breakPoint[n - 1].includes('.')) {
+        point.disabled = true;
+    }
+
+}
 
 const operators = document.querySelectorAll('.operator');
 operators.forEach((operator) => {
@@ -70,14 +88,14 @@ const evalExpression = function () {
     console.log(expression);
     const token = expression.split(' ');
     console.log(token);
-    let result = parseInt(token[0]);
+    let result = parseFloat(token[0]);
     if (isNaN(result)) {
         result = "ERROR!";
     }
 
     for (let i = 1; i < token.length; i += 2) {
         const operator = token[i];
-        const nextNumber = parseInt(token[i + 1]);
+        const nextNumber = parseFloat(token[i + 1]);
 
         if (isNaN(nextNumber)) {
             result = 'ERROR!';
