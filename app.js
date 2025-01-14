@@ -24,6 +24,29 @@ const clear = document.querySelector('#clear');
 const display = document.querySelector('#display');
 const equal = document.querySelector('#equal');
 const point = document.querySelector('#point');
+const del = document.querySelector('#del');
+
+
+del.addEventListener('click', () => {
+    display.textContent = display.textContent.slice(0, -1);
+
+    const delLast = expression.split(' ');
+    if (delLast.length > 0) {
+        let lastElement = delLast[delLast.length - 1];
+
+        if (lastElement.length > 1) {
+            delLast[delLast.length - 1] = lastElement.slice(0, -1);
+        }
+        else {
+            delLast.pop();
+        }
+    }
+
+    expression = delLast.join(' ');
+    console.log(expression);
+})
+
+
 clear.addEventListener('click', () => {
     display.textContent = '';
     expression = '';
