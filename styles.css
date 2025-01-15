@@ -12,7 +12,7 @@ h1 {
 
 
 .container {
-    padding: 10px;
+    padding: 12px;
     border: 2px solid white;
     border-radius: 15px;
     background-color: black;
@@ -39,9 +39,14 @@ button {
 #zero {
     width: 104px;
     border-radius: 25px;
-    background-color: rgb(76, 76, 76);
+    font-size: 20px;
+    font-weight: 800;
 }
 
+#del {
+    font-weight: 800;
+    font-size: 17px;
+}
 
 
 .buttons {
@@ -59,4 +64,35 @@ button {
 
 .operators button {
     background-color: orange;
+    font-size: 25px;
+    color: white;
+    font-weight: 900;
+}
+
+.number {
+    background-color: rgb(101, 101, 101);
+    color: white;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.contact {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: 40px;
+    width: 100px;
+    height: 20px;
+    transition: all 0.3s ease;
+}
+
+.contact:hover {
+    transform: scale(1.5);
+}
+
+.contact a {
+    text-decoration: none;
+    color: rgb(55, 70, 75);
+    font-size: 20px;
+    font-weight: 600;
 }
